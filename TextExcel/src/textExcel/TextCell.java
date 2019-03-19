@@ -13,10 +13,9 @@ public class TextCell implements Cell {
 	public String abbreviatedCellText() { //has to return 10 chars
 		String alterStr = str;
 		for (int i = 0; i <= 10; i++) { //adding 10 spaces
-			alterStr += "";
+			alterStr += " ";
 		}
-			alterStr = str.substring(0,10);  //truncating to the first 10 chars
-			return alterStr;
+		return alterStr.substring(0,10); //truncating to the first 10 chars
 	}		
 
 	public String fullCellText() { //returns the original String with quotes

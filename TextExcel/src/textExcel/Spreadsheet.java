@@ -11,7 +11,7 @@ public class Spreadsheet implements Grid {
 		numRows = 20;
 		numCols= 12;
 		sheet = new Cell [numRows][numCols];
-		for(int row = 0; row < numRows; row++) { //constructing all the rows
+		for (int row = 0; row < numRows; row++) { //constructing all the rows
 			for (int col = 0; col < numCols; col++) { //constructing all the columns
 				sheet[row][col] = new EmptyCell(); 
 			}
@@ -19,18 +19,16 @@ public class Spreadsheet implements Grid {
 	}
 	@Override
 	public String processCommand(String command) {
-		String[] splitCommand = command.split(" ",3);
+		String[] splitCommand = command.split(" ", 3);
 		SpreadsheetLocation cellLoc;
 		if (command.contains("clear")) { 
 			if (command.equals("clear")) { //clears all cells on the sheet (makes them Empty Cells)
 				for (int i = 0; i < sheet.length; i++) {
 					for (int j = 0; j < sheet[i].length; j++) {
-						sheet[i][j] = new EmptyCell();
-						
+						sheet[i][j] = new EmptyCell();		
 					} 
 				}
 				return getGridText();
-
 			}
 			else { //clearing a particular cell (makes it an Empty Cell)
 				cellLoc = new SpreadsheetLocation(splitCommand[1]);
@@ -39,8 +37,9 @@ public class Spreadsheet implements Grid {
 			}
 		}
 		else if (splitCommand.length == 3) { //assignment of string values
-			cellLoc = new SpreadsheetLocation(splitCommand[0]);
-			sheet[cellLoc.getRow()][cellLoc.getCol()] = new TextCell(splitCommand[2]);
+			String[] splitEquals = command.split(" = ", 2);
+			cellLoc = new SpreadsheetLocation(splitEquals[0]);
+			sheet[cellLoc.getRow()][cellLoc.getCol()] = new TextCell(splitEquals[1]);
 			return getGridText();
 		}
 				
@@ -49,6 +48,7 @@ public class Spreadsheet implements Grid {
 			return getCell(cellLoc).fullCellText(); 
 		}
 	}
+	
 	@Override
 	public int getRows() { //returns # of rows in grid
 		return numRows;
@@ -61,7 +61,7 @@ public class Spreadsheet implements Grid {
 
 	@Override
 	public Cell getCell(Location loc) {
-		return sheet[getRows()][getCols()];
+		return sheet[loc.getRow()][loc.getCol()];
 	}
 
 	@Override
@@ -73,21 +73,19 @@ public class Spreadsheet implements Grid {
 			}	
 				
 		String rows = ""; //for every other row afterwards
-			for (int i = 1; i <= 20; i++) { //print the row number
-				int rowNumber = i;
-				if (i >= 10) {
+			for (int i = 0; i < 20; i++) { //print the row number
+				int rowNumber = i+1;
+				if (rowNumber >= 10) {
 					rows += rowNumber + " |";
 				}
 				else { //adjust the spacing for the two digit numbers
 				rows += rowNumber + "  |";
 				}
-			for (int j = 0; j <= 11; j++) { //print out the rest of the row
-				Location loc = new SpreadsheetLocation(i, j);
-				rows += getCell(loc).abbreviatedCellText();
-			}
-			rows += "\n";
+				for (int j = 0; j <= 11; j++) { //print out the rest of the row
+					rows += sheet[i][j].abbreviatedCellText() + "|";
+				}
+				rows += "\n";
 			}
 		return rowOne + "\n" + rows;
 	}
-
 }
