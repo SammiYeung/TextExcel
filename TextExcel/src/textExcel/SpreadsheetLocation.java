@@ -12,8 +12,9 @@ public class SpreadsheetLocation implements Location {
 	
 	public SpreadsheetLocation(String cellName){
 		location = cellName.toUpperCase();
-    	rowNum = Integer.parseInt(location.substring(1)) - 1; //convert the String row name to an int; "- 1" because the index starts at 0
-    	colLet = (int)(location.toUpperCase().charAt(0) - 65);//A has ASCII code 65 when cast as an int, so "- 65" makes the A column correspond to 0
+    	rowNum = Integer.parseInt(location.substring(1))-1; //convert the String row name to an int; "- 1" because the index starts at 0
+    	String letter = location.toUpperCase();
+    	colLet = (int)(letter.charAt(0) - 65); //A has ASCII code 65 when cast as an int, so "- 65" makes the A column correspond to 0
 	}
 	public SpreadsheetLocation(int row, int column) {
     	rowNum = row;

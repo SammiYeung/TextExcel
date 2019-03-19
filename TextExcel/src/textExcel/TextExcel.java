@@ -13,7 +13,7 @@ public class TextExcel {
     	System.out.println("Please enter a command:");
         String input = userInput.nextLine();
 		
-    	while (!input.equals("quit")) {
+    	while (!input.equalsIgnoreCase("quit")) {
     		System.out.println(sprSheet.processCommand(input));	
     		//System.out.println(sprSheet.processCommand(input));
     		System.out.println("Do you want to keep going? Type \"quit\" to end.");

@@ -21,8 +21,14 @@ public class Spreadsheet implements Grid {
 	public String processCommand(String command) {
 		String[] splitCommand = command.split(" ", 3);
 		SpreadsheetLocation cellLoc;
-		if (command.contains("clear")) { 
-			if (command.equals("clear")) { //clears all cells on the sheet (makes them Empty Cells)
+		if (splitCommand.length == 3) { //assignment of string values
+			String[] splitEquals = command.split(" = ", 2);
+			cellLoc = new SpreadsheetLocation(splitEquals[0]);
+			sheet[cellLoc.getRow()][cellLoc.getCol()] = new TextCell(splitEquals[1]);
+			return getGridText();
+		}
+		else if (command.toLowerCase().contains("clear")) { 
+			if (command.equalsIgnoreCase("clear")) { //clears all cells on the sheet (makes them Empty Cells)
 				for (int i = 0; i < sheet.length; i++) {
 					for (int j = 0; j < sheet[i].length; j++) {
 						sheet[i][j] = new EmptyCell();		
@@ -35,12 +41,6 @@ public class Spreadsheet implements Grid {
 				sheet[cellLoc.getRow()][cellLoc.getCol()] = new EmptyCell();
 				return getGridText();
 			}
-		}
-		else if (splitCommand.length == 3) { //assignment of string values
-			String[] splitEquals = command.split(" = ", 2);
-			cellLoc = new SpreadsheetLocation(splitEquals[0]);
-			sheet[cellLoc.getRow()][cellLoc.getCol()] = new TextCell(splitEquals[1]);
-			return getGridText();
 		}
 				
 		else {
