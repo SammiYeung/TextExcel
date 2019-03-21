@@ -24,8 +24,16 @@ public class Spreadsheet implements Grid {
 		if (splitCommand.length == 3) { //assignment of string values
 			String[] splitEquals = command.split(" = ", 2);
 			cellLoc = new SpreadsheetLocation(splitEquals[0]);
-			sheet[cellLoc.getRow()][cellLoc.getCol()] = new TextCell(splitEquals[1]);
+			//if (String) {
+				sheet[cellLoc.getRow()][cellLoc.getCol()] = new TextCell(splitEquals[1]);
+			/* else if (simple decimal value) {
+				sheet[cellLoc.getRow()][cellLoc.getCol()] = new ValueCell(splitEquals[1]);
+			else if (decimal value followed by a percent) {
+				sheet[cellLoc.getRow()][cellLoc.getCol()] = new PercentCell(splitEquals[1]);
+			else if (expression contained in parentheses)
+				sheet[cellLoc.getRow()][cellLoc.getCol()] = new FormulaCell(splitEquals[1]);*/
 			return getGridText();
+			
 		}
 		else if (command.toLowerCase().contains("clear")) { 
 			if (command.equalsIgnoreCase("clear")) { //clears all cells on the sheet (makes them Empty Cells)

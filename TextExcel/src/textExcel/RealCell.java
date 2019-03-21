@@ -4,6 +4,25 @@
 
 package textExcel;
 
-public class RealCell {
+public class RealCell implements Cell { //constructor
+	private String input;
+	
+	public RealCell(String command) {
+		input = command;
+	}
+	
+	public double getDoubleValue(String input){
+		return Double.parseDouble(input);
+	}
 
+	@Override
+	public String abbreviatedCellText() {
+		String big = input + "          ";
+		return big.substring(0,10);
+	}
+
+	@Override
+	public String fullCellText() {
+		return input;
+	}
 }
