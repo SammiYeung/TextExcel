@@ -24,14 +24,19 @@ public class Spreadsheet implements Grid {
 		if (splitCommand.length == 3) { //assignment of string values
 			String[] splitEquals = command.split(" = ", 2);
 			cellLoc = new SpreadsheetLocation(splitEquals[0]);
-			//if (String) {
+			if (splitCommand[2].startsWith("\"") && splitCommand[2].endsWith("\"")) { //surrounded by quotes makes it a string
 				sheet[cellLoc.getRow()][cellLoc.getCol()] = new TextCell(splitEquals[1]);
-			/* else if (simple decimal value) {
-				sheet[cellLoc.getRow()][cellLoc.getCol()] = new ValueCell(splitEquals[1]);
-			else if (decimal value followed by a percent) {
-				sheet[cellLoc.getRow()][cellLoc.getCol()] = new PercentCell(splitEquals[1]);
-			else if (expression contained in parentheses)
-				sheet[cellLoc.getRow()][cellLoc.getCol()] = new FormulaCell(splitEquals[1]);*/
+			} 
+				else if (splitCommand[2].endsWith("%")) { //ending with a % makes it a percent
+				sheet[cellLoc.getRow()][cellLoc.getCol()] = new PercentCell(splitEquals[1]); 
+				}
+				else if (splitCommand[2].startsWith("(") && splitCommand[2].endsWith(")")) { //surrounded by parentheses makes it a formula
+				sheet[cellLoc.getRow()][cellLoc.getCol()] = new FormulaCell(splitEquals[1]);
+				} 
+					else { //otherwise it's a decimal
+						sheet[cellLoc.getRow()][cellLoc.getCol()] = new ValueCell(splitEquals[1]);
+					}
+			
 			return getGridText();
 			
 		}
