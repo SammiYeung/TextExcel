@@ -13,8 +13,8 @@ public class ValueCell extends RealCell {
 	public double getDoubleValue() { 
 		return Double.parseDouble(fullCellText()); 
 	}
-	public String abbreviatedCellText() { //truncates teh value to fit cell width
+	public String abbreviatedCellText() { //truncates the value to fit cell width
 		return (getDoubleValue() + "          ").substring(0, 10); 
 	}
-
+//fullCellText returns the input, but is inherited from RealCell
 }
