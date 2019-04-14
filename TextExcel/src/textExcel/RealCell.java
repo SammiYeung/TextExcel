@@ -11,8 +11,8 @@ public class RealCell implements Cell { //constructor
 		input = command;
 	}
 	
-	public double getDoubleValue(String input){
-		return Double.parseDouble(input);
+	public double getDoubleValue(){
+		return Double.parseDouble(this.input);
 	}
 
 	@Override

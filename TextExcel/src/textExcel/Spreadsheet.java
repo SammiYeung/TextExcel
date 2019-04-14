@@ -36,10 +36,9 @@ public class Spreadsheet implements Grid {
 					else { //otherwise it's a decimal
 						sheet[cellLoc.getRow()][cellLoc.getCol()] = new ValueCell(splitEquals[1]);
 					}
-			
 			return getGridText();
-			
-		}
+			}
+		
 		else if (command.toLowerCase().contains("clear")) { 
 			if (command.equalsIgnoreCase("clear")) { //clears all cells on the sheet (makes them Empty Cells)
 				for (int i = 0; i < sheet.length; i++) {
@@ -55,12 +54,13 @@ public class Spreadsheet implements Grid {
 				return getGridText();
 			}
 		}
-				
+		
 		else {
 			cellLoc = new SpreadsheetLocation(command);
 			return getCell(cellLoc).fullCellText(); 
 		}
 	}
+	
 	
 	@Override
 	public int getRows() { //returns # of rows in grid
