@@ -5,9 +5,11 @@ package textExcel;
 public class FormulaCell extends RealCell{
 	private String str;	
 	private Spreadsheet sheet;
-	public FormulaCell(String command) {
+	public FormulaCell(String command, Spreadsheet sheet) {
 		super(command);
 		str = command;
+		this.sheet = sheet;
+		
 	}
 	
 	public double getDoubleValue() {
@@ -21,18 +23,17 @@ public class FormulaCell extends RealCell{
 		}
 		if (splitFormula[0].length() <= 3 && Character.isLetter(splitFormula[0].charAt(0))) { //Testing if the first element of the array is a cell name
 			SpreadsheetLocation cellLoc = new SpreadsheetLocation(splitFormula[0]);
-			System.out.println(splitFormula[0]);
-			answer = ((RealCell) sheet.getCell(cellLoc)).getDoubleValue();
+			RealCell tempCell = (RealCell) sheet.getCell(cellLoc);
+			answer = tempCell.getDoubleValue();
 		}
 		else {
 			answer += Double.parseDouble(splitFormula[0]);
 		}
 		
 			for (int i = 2; i <= (splitFormula.length); i+=2) { //looking at operands only  
-				    for (int j = 0; j < splitFormula[i].length(); j++) { //check if the element is a cell name
+				    for (int j = 0; j < splitFormula[i].length(); j+=2) { //check if the element is a cell name
 				        char charAt2 = splitFormula[i].charAt(j);
 				        if (splitFormula[i].length() <= 3 && Character.isLetter(charAt2)) {
-				        	//System.out.println (cellLoc.getCol() + " " + cellLoc.getRow());
 				        	SpreadsheetLocation cellLoc = new SpreadsheetLocation(splitFormula[i]);
 				        	double newOperand = ((RealCell) sheet.getCell(cellLoc)).getDoubleValue();
 				        	if(splitFormula[i - 1].equals("+")) { // when doing i - 1, you're looking at the operator next to the corresponding operator

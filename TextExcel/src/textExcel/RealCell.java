@@ -12,7 +12,7 @@ public class RealCell implements Cell { //constructor
 	}
 	
 	public double getDoubleValue(){
-		return Double.parseDouble(this.input);
+		return Double.parseDouble(input);
 	}
 
 	@Override

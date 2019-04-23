@@ -31,7 +31,7 @@ public class Spreadsheet implements Grid {
 				sheet[cellLoc.getRow()][cellLoc.getCol()] = new PercentCell(splitEquals[1]); 
 				}
 				else if (splitCommand[2].startsWith("(") && splitCommand[2].endsWith(")")) { //surrounded by parentheses makes it a formula
-				sheet[cellLoc.getRow()][cellLoc.getCol()] = new FormulaCell(splitEquals[1]);
+				sheet[cellLoc.getRow()][cellLoc.getCol()] = new FormulaCell(splitEquals[1],this);
 				} 
 					else { //otherwise it's a decimal
 						sheet[cellLoc.getRow()][cellLoc.getCol()] = new ValueCell(splitEquals[1]);
