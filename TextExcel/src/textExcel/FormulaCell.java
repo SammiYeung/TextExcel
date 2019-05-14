@@ -21,7 +21,7 @@ public class FormulaCell extends RealCell{
 		} else if (splitFormula[0].equalsIgnoreCase("avg")) {
 			return avg(splitFormula[1]);
 		}
-		if (splitFormula[0].length() <= 3 && Character.isLetter(splitFormula[0].charAt(0))) { //Testing if the first element of the array is a cell name
+		else if (splitFormula[0].length() <= 3 && Character.isLetter(splitFormula[0].charAt(0))) { //Testing if the first element of the array is a cell name
 			SpreadsheetLocation cellLoc = new SpreadsheetLocation(splitFormula[0]);
 			RealCell tempCell = (RealCell) sheet.getCell(cellLoc);
 			answer = tempCell.getDoubleValue();
@@ -31,9 +31,8 @@ public class FormulaCell extends RealCell{
 		}
 		
 			for (int i = 2; i <= (splitFormula.length); i+=2) { //looking at operands only  
-				    for (int j = 0; j < splitFormula[i].length(); j+=2) { //check if the element is a cell name
-				        char charAt2 = splitFormula[i].charAt(j);
-				        if (splitFormula[i].length() <= 3 && Character.isLetter(charAt2)) {
+				        char charAt0 = splitFormula[i].charAt(0);
+				        if (splitFormula[i].length() <= 3 && Character.isLetter(charAt0)) { //check if the element is a cell name
 				        	SpreadsheetLocation cellLoc = new SpreadsheetLocation(splitFormula[i]);
 				        	double newOperand = ((RealCell) sheet.getCell(cellLoc)).getDoubleValue();
 				        	if(splitFormula[i - 1].equals("+")) { // when doing i - 1, you're looking at the operator next to the corresponding operator
@@ -49,8 +48,8 @@ public class FormulaCell extends RealCell{
 				        		answer /= newOperand; //divides the new operand
 				        	}
 				        }
-			
-				        else {	
+				        
+				      else {	
 				        	double newOperand = Double.parseDouble(splitFormula[i]); //if the operand is just a number
 				        	if(splitFormula[i - 1].equals("+")) { 
 				        		answer += newOperand; //adds the new operand
@@ -66,7 +65,7 @@ public class FormulaCell extends RealCell{
 				        	}				
 				        }
 			}
-		}
+		//}
 			return answer;
 	}
 
@@ -81,15 +80,14 @@ public class FormulaCell extends RealCell{
 	
 	public double sum(String range) {
 		String[] cells = range.split("-"); //top left corner in index 0, bottom right corner in index 1
-		char letter1 = (cells[0].toLowerCase()).charAt(0); //column of starting point
-		int number1 = Integer.parseInt(cells[0].substring(1)); //column of ending point
-		char letter2 = (cells[1].toLowerCase()).charAt(0); //row of starting point
-		int number2 = Integer.parseInt(cells[1].substring(1)); //row of ending point
+		SpreadsheetLocation startLoc = new SpreadsheetLocation(cells[0]);
+		SpreadsheetLocation endLoc = new SpreadsheetLocation(cells[1]);
 		double added = 0;
-		for (char i = letter1; i <= letter2; i++) {
-			for (int j = number1; j <= number2; j++) {
-				SpreadsheetLocation cellLoc = new SpreadsheetLocation(i + "" + j);
-				added += ((RealCell) sheet.getCell(cellLoc)).getDoubleValue();
+		 for(int i = startLoc.getRow(); i <= endLoc.getRow(); i++) { //the number of rows being selected
+			 for(int j = startLoc.getCol(); j <=endLoc.getCol(); j++) { //the number of columns being selected
+				 SpreadsheetLocation loc = new SpreadsheetLocation(i, j);
+				 RealCell tempCell = (RealCell) sheet.getCell(loc);
+				 added += tempCell.getDoubleValue();
 			}
 		}
 		return added;

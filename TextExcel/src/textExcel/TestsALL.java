@@ -1269,7 +1269,7 @@ public class TestsALL
             grid.processCommand("C15 = ( C14 - C13 )"); // 1
             grid.processCommand("C16 = ( 32 - C14 )"); // 30
             grid.processCommand("K20 = ( SuM c13-C16 )"); // 34
-            grid.processCommand("L20 = ( Avg c13-C16 )"); // 8.5
+            grid.processCommand("L20 = ( Avg c13-C16 )"); // 8.5 
             Cell cellSum = grid.getCell(new TestLocation(19, 10));
             Cell cellAvg = grid.getCell(new TestLocation(19, 11));
             assertEquals("sum vertical", Helper.format("34.0"), cellSum.abbreviatedCellText());

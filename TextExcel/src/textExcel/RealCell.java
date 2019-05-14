@@ -10,7 +10,7 @@ public class RealCell implements Cell { //constructor
 	public RealCell(String command) {
 		input = command;
 	}
-	
+
 	public double getDoubleValue(){
 		return Double.parseDouble(input);
 	}

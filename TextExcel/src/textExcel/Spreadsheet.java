@@ -14,7 +14,7 @@ public class Spreadsheet implements Grid {
 		for (int row = 0; row < numRows; row++) { //constructing all the rows
 			for (int col = 0; col < numCols; col++) { //constructing all the columns
 				sheet[row][col] = new EmptyCell(); 
-			}
+			} 
 		}
 	}
 	@Override
