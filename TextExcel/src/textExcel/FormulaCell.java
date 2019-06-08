@@ -9,7 +9,7 @@ public class FormulaCell extends RealCell{
 		super(command);
 		str = command;
 		this.sheet = sheet;
-		
+		 
 	}
 	
 	public double getDoubleValue() {
